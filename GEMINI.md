@@ -26,3 +26,8 @@ PoliCheck es una plataforma web colaborativa para la transparencia política en 
   - Creación del proyecto en Supabase.
   - Creación del esquema inicial de la base de datos (`politicians`, `sources`, `votes`) y políticas de seguridad (RLS) a través de una migración SQL.
   - Conexión de la aplicación Next.js al backend de Supabase.
+
+- **2025-07-15 (Continuación):**
+  - Migración de las páginas HTML estáticas (`home.html`, `about.html`, `analisis.html`, `perfil.html`, `model_ia_analitical.html`) a componentes de React (`.tsx`) dentro de la estructura de Next.js.
+  - Creación de un layout principal (`src/components/layout/Header.tsx` y `src/app/layout.tsx`) para unificar la apariencia y la navegación.
+  - Refactorización de las páginas migradas para utilizar el layout principal y el enrutamiento de Next.js (`<Link>`).

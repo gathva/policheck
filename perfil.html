@@ -1,0 +1,255 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+  <body>
+    <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: Inter, "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-3">
+          <div class="flex items-center gap-8">
+            <div class="flex items-center gap-4 text-[#111418]">
+              <div class="size-4">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path></svg>
+              </div>
+              <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">PoliCheck</h2>
+            </div>
+            <div class="flex items-center gap-9">
+              <a class="text-[#111418] text-sm font-medium leading-normal" href="#">Home</a>
+              <a class="text-[#111418] text-sm font-medium leading-normal" href="#">Politicians</a>
+              <a class="text-[#111418] text-sm font-medium leading-normal" href="#">Topics</a>
+              <a class="text-[#111418] text-sm font-medium leading-normal" href="#">About</a>
+            </div>
+          </div>
+          <div class="flex flex-1 justify-end gap-8">
+            <label class="flex flex-col min-w-40 !h-10 max-w-64">
+              <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+                <div
+                  class="text-[#637588] flex border-none bg-[#f0f2f4] items-center justify-center pl-4 rounded-l-lg border-r-0"
+                  data-icon="MagnifyingGlass"
+                  data-size="24px"
+                  data-weight="regular"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                    <path
+                      d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"
+                    ></path>
+                  </svg>
+                </div>
+                <input
+                  placeholder="Search"
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111418] focus:outline-0 focus:ring-0 border-none bg-[#f0f2f4] focus:border-none h-full placeholder:text-[#637588] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                  value=""
+                />
+              </div>
+            </label>
+            <button
+              class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#f0f2f4] text-[#111418] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5"
+            >
+              <div class="text-[#111418]" data-icon="Bell" data-size="20px" data-weight="regular">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                  <path
+                    d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"
+                  ></path>
+                </svg>
+              </div>
+            </button>
+            <div
+              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBAU1S3IPrrwX0sMUbhxtx1nOOXDV-l-rQlaRiwr-KTv8nIFPL8EoQCpE6qz3Fs0E4XugyNsSJAYbZuT-fm_4q-2R-C8Ei4gcOyaFpWNltk4XTCM4vcKSnWlSqho9XZBxl-ph-Vcvo2oofuBi1q_r6ubSBTkLBJ_gzHX6kQiyTOuV3DmWU28XkNeg6i_30Rcl_T9Hyw5xvtq9HWjmaYgVWKUYn5CPpWYA2RnFxfP-PptjbX_kYEW98cvS8wUwPWzrQj-mT04B0BwFSI");'
+            ></div>
+          </div>
+        </header>
+        <div class="px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex p-4 @container">
+              <div class="flex w-full flex-col gap-4 @[520px]:flex-row @[520px]:justify-between @[520px]:items-center">
+                <div class="flex gap-4">
+                  <div
+                    class="bg-center bg-no-repeat aspect-square bg-cover rounded-full min-h-32 w-32"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuALZSUlEQMWqHlIUVgBezMurBgB5z5AdgghQ02t25eVPI8FmHDPNeRhxn45Bz7Z11_gSzqclbGqifh-Ndyznh_gVSMEaaKCAijd8JN-aL9TBJI2R3BzxPX790BgIyYkDQWB8xFCu3gFvxVN-f3tLifP4lEEUrrtQP76Ng3AGKYHS6ldfmZuOFyorXFFNDTh9Vo-7wl5YQ9Sp0sJcy_ZPiRSzonUEQZSUa-1ulzYmyxDQu8Ghkh8OYPppnrN8nXEtGORGh73cx3yIYy-");'
+                  ></div>
+                  <div class="flex flex-col justify-center">
+                    <p class="text-[#111418] text-[22px] font-bold leading-tight tracking-[-0.015em]">Senator Olivia Carter</p>
+                    <p class="text-[#637588] text-base font-normal leading-normal">Democrat</p>
+                    <p class="text-[#637588] text-base font-normal leading-normal">Average Veracity Score: 85%</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h2 class="text-[#111418] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Community Sources</h2>
+            <div class="px-4 py-3 @container">
+              <div class="flex overflow-hidden rounded-lg border border-[#dce0e5] bg-white">
+                <table class="flex-1">
+                  <thead>
+                    <tr class="bg-white">
+                      <th class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-120 px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">Source</th>
+                      <th class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-240 px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">Type</th>
+                      <th class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-360 px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">
+                        Submitted By
+                      </th>
+                      <th class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-480 px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">Date</th>
+                      <th class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-600 px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">Votes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-t border-t-[#dce0e5]">
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-120 h-[72px] px-4 py-2 w-[400px] text-[#111418] text-sm font-normal leading-normal">
+                        Article: Senator Carter's Stance on Climate Change
+                      </td>
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-240 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">
+                        News Article
+                      </td>
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-360 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">
+                        Ethan Harper
+                      </td>
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-480 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">
+                        2024-07-20
+                      </td>
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-600 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">125</td>
+                    </tr>
+                    <tr class="border-t border-t-[#dce0e5]">
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-120 h-[72px] px-4 py-2 w-[400px] text-[#111418] text-sm font-normal leading-normal">
+                        Video: Town Hall Meeting with Senator Carter
+                      </td>
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-240 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">Video</td>
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-360 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">
+                        Sophia Bennett
+                      </td>
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-480 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">
+                        2024-07-15
+                      </td>
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-600 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">98</td>
+                    </tr>
+                    <tr class="border-t border-t-[#dce0e5]">
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-120 h-[72px] px-4 py-2 w-[400px] text-[#111418] text-sm font-normal leading-normal">
+                        Transcript: Senator Carter's Speech at the Conference
+                      </td>
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-240 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">
+                        Transcript
+                      </td>
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-360 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">
+                        Liam Foster
+                      </td>
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-480 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">
+                        2024-07-10
+                      </td>
+                      <td class="table-011a0830-cf7a-49c5-bf57-0513e308a957-column-600 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">76</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <style>
+                          @container(max-width:120px){.table-011a0830-cf7a-49c5-bf57-0513e308a957-column-120{display: none;}}
+                @container(max-width:240px){.table-011a0830-cf7a-49c5-bf57-0513e308a957-column-240{display: none;}}
+                @container(max-width:360px){.table-011a0830-cf7a-49c5-bf57-0513e308a957-column-360{display: none;}}
+                @container(max-width:480px){.table-011a0830-cf7a-49c5-bf57-0513e308a957-column-480{display: none;}}
+                @container(max-width:600px){.table-011a0830-cf7a-49c5-bf57-0513e308a957-column-600{display: none;}}
+              </style>
+            </div>
+            <h2 class="text-[#111418] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Analysis History</h2>
+            <div class="px-4 py-3 @container">
+              <div class="flex overflow-hidden rounded-lg border border-[#dce0e5] bg-white">
+                <table class="flex-1">
+                  <thead>
+                    <tr class="bg-white">
+                      <th class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-120 px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">
+                        Statement/Content
+                      </th>
+                      <th class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-240 px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">Date</th>
+                      <th class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-360 px-4 py-3 text-left text-[#111418] w-[400px] text-sm font-medium leading-normal">
+                        Veracity Score
+                      </th>
+                      <th class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-480 px-4 py-3 text-left text-[#111418] w-60 text-[#637588] text-sm font-medium leading-normal">
+                        Analysis Details
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-t border-t-[#dce0e5]">
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-120 h-[72px] px-4 py-2 w-[400px] text-[#111418] text-sm font-normal leading-normal">
+                        Senator Carter's tweet on economic policy
+                      </td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-240 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">
+                        2024-07-25
+                      </td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-360 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">92%</td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-480 h-[72px] px-4 py-2 w-60 text-[#637588] text-sm font-bold leading-normal tracking-[0.015em]">
+                        View
+                      </td>
+                    </tr>
+                    <tr class="border-t border-t-[#dce0e5]">
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-120 h-[72px] px-4 py-2 w-[400px] text-[#111418] text-sm font-normal leading-normal">
+                        Interview on national security
+                      </td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-240 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">
+                        2024-07-22
+                      </td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-360 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">78%</td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-480 h-[72px] px-4 py-2 w-60 text-[#637588] text-sm font-bold leading-normal tracking-[0.015em]">
+                        View
+                      </td>
+                    </tr>
+                    <tr class="border-t border-t-[#dce0e5]">
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-120 h-[72px] px-4 py-2 w-[400px] text-[#111418] text-sm font-normal leading-normal">
+                        Speech at the political convention
+                      </td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-240 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">
+                        2024-07-18
+                      </td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-360 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">88%</td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-480 h-[72px] px-4 py-2 w-60 text-[#637588] text-sm font-bold leading-normal tracking-[0.015em]">
+                        View
+                      </td>
+                    </tr>
+                    <tr class="border-t border-t-[#dce0e5]">
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-120 h-[72px] px-4 py-2 w-[400px] text-[#111418] text-sm font-normal leading-normal">
+                        Press release on healthcare reform
+                      </td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-240 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">
+                        2024-07-12
+                      </td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-360 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">85%</td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-480 h-[72px] px-4 py-2 w-60 text-[#637588] text-sm font-bold leading-normal tracking-[0.015em]">
+                        View
+                      </td>
+                    </tr>
+                    <tr class="border-t border-t-[#dce0e5]">
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-120 h-[72px] px-4 py-2 w-[400px] text-[#111418] text-sm font-normal leading-normal">
+                        Town hall discussion on education
+                      </td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-240 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">
+                        2024-07-05
+                      </td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-360 h-[72px] px-4 py-2 w-[400px] text-[#637588] text-sm font-normal leading-normal">80%</td>
+                      <td class="table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-480 h-[72px] px-4 py-2 w-60 text-[#637588] text-sm font-bold leading-normal tracking-[0.015em]">
+                        View
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <style>
+                          @container(max-width:120px){.table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-120{display: none;}}
+                @container(max-width:240px){.table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-240{display: none;}}
+                @container(max-width:360px){.table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-360{display: none;}}
+                @container(max-width:480px){.table-47eceeb7-8ed0-47dd-9845-235fa76e77ec-column-480{display: none;}}
+              </style>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
