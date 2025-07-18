@@ -31,3 +31,17 @@ PoliCheck es una plataforma web colaborativa para la transparencia política en 
   - Migración de las páginas HTML estáticas (`home.html`, `about.html`, `analisis.html`, `perfil.html`, `model_ia_analitical.html`) a componentes de React (`.tsx`) dentro de la estructura de Next.js.
   - Creación de un layout principal (`src/components/layout/Header.tsx` y `src/app/layout.tsx`) para unificar la apariencia y la navegación.
   - Refactorización de las páginas migradas para utilizar el layout principal y el enrutamiento de Next.js (`<Link>`).
+
+- **2025-07-16:**
+  - Reorganización y limpieza de la estructura de archivos del proyecto.
+  - Eliminación de rutas y componentes duplicados (`about.tsx`, `Header.tsx`, etc.).
+  - Consolidación de las páginas en la estructura de enrutamiento de App Router de Next.js (usando `page.tsx` en subdirectorios).
+  - Eliminación de los archivos HTML estáticos de la raíz del proyecto.
+  - Corrección de la importación del componente `Header` en el layout principal.
+  - Rediseño de la página de inicio (`src/app/page.tsx`) con una nueva sección "Hero", un componente de pestañas para el análisis y una sección "Cómo Funciona".
+
+- **2025-07-18:**
+  - Creación del `PLAN.md` para documentar la visión, arquitectura y hoja de ruta del proyecto.
+  - Se define el modelo de sostenibilidad (donaciones, sponsors, fundación) y se elige la Licencia MIT para el proyecto.
+  - Se expande el esquema de la base de datos para incluir las tablas `topic_categories`, `topics`, `topic_votes` y `ai_reports`.
+  - Se aplica la nueva migración directamente en el editor SQL de Supabase debido a problemas de conexión con la CLI local.
