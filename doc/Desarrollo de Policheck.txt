@@ -1,0 +1,339 @@
+﻿Proyecto PoliCheck: ¿Es posible medir la veracidad y coherencia de la política?
+Descripción
+
+
+PoliCheck es una app que busca evaluar el discurso y veracidad de políticos utilizando IA, además de lograr la participación de la comunidad registrada en la app. Se espera registrar en la plataforma a los personajes políticos solicitados por la comunidad. Por el momento se espera comenzar a registrar a los postulantes a la presidencia de Chile 2025. Dentro de la ficha de cada político se encuentra un contenedor de fuentes. Las fuentes son el material que adjunta la comunidad registrada en policheck. El material que adjunta la comunidad son links de artículos, entrevistas , noticias y links de videos en youtube. El contenedor de fuentes está dividido en 2 secciones. Fuentes verificadas y fuentes no verificadas. El material recién adjuntado pasa por defecto a la sección de fuentes no verificadas. Para que las fuentes no verificadas pasen a la sección de fuentes verificadas se espera que la misma comunidad la revise y la evalúe. cada link de fuente es evaluado y votado con las alternativas: Veras, Dudoso y Falso. Se espera una votación mínima para que el material pase a ser Fuente verificada. Al pasar el material a la fuente verificada, el material será inspeccionado por una IA y lo evaluará de la siguiente manera:
+
+
+* Revisa el material y divide el discurso del político según los temas públicos registrados por la comunidad. Para entender el discurso y la opinión del público en relación a los temas públicos que son de preocupación por la comunidad.
+* Se debe buscar la coherencia del discurso del político con los temas públicos.
+* Los temas públicos son sugeridos por la comunidad y también son votados por la comunidad para saber su prioridad. Los usuarios registrados cuentan con 5 puntos de votación para votar por los temas públicos y son los usuarios en sus votaciones los que determinan la urgencia de los temas públicos. Mensualmente los usuarios pueden cambiar su selección moviendo sus 5 puntos a los temas públicos de su interés. Un tema público puede recibir hasta 3 puntos de votación de un mismo usuario para darle un nivel de prioridad. prioridad normal (solo 1 voto), prioridad alta (2 puntos) y prioridad alta (3 puntos). Los temas públicos ayudan a ver los intereses de la comunidad y que tan cercanos están los políticos a los temas públicos de interés de la comunidad.
+* Se deben buscar alternativas para evitar que los políticos solo opinen de los temas públicos más votados como pretexto para tener tendencia. Para esto podría ser que se revise el nivel de coherencia del político revisando por ejemplo su historial sobre los temas públicos a lo largo del tiempo. Por esto es conveniente el registro de material verificado en las fuentes. Se aprovecha que cada vez hay más material multimedia de declaraciones y entrevistas de los políticos a lo largo del tiempo.  
+* Las fuentes validadas por la comunidad como verás también ayudan a dar veracidad al portal o canal de youtube que comparte la fuente. Así se podría obtener un ranking de los portales o canales de youtube más y menos veraces según la comunidad. 
+* Cómo resultado del análisis de las fuentes se espera crear un informe general del político que será presentado en su página de perfil con estadísticas y métricas. Indicando claramente el modelo de IA que se utilizó para el resultado. Cómo se espera usar más de un modelo de IA se espera que estén ordenadas y claramente distinguidas para que el usuario pueda fácilmente navegar entre ella y ver los resultados.
+* Se espera hacer un análisis general de los resultados de los modelos de las IAs para dar un veredicto del político. Esto puede ser con estadísticas o una IA que realiza un reporte general de los reportes presentados por las distintas IAs.
+Para dar más veracidad al proyecto Policheck se espera usar más de un modelo de IA para hacer un análisis más certero del político. Se espera usar los 3 o 4 modelos de mejor votación en imarena.ai. Pero por problemas de costos se usarán modelos de bajo costo o gratuitos en la etapa de desarrollo. (Ejemplo, Google gemini Lite 2.5, deepseek v3, qwen3, ollama, etc). Para tener un control fácil de los modelos y una forma fácil de modificar los se utilizará el portal operouter con una API KEY creada para el proyecto.
+El proyecto se espera que sea de ayuda social por lo que utilizará licencia MIT. Se espera luego hacer campañas para obtener recursos para costear los gastos de servicios y pago por sueldos, licencias si son necesarias, etc.
+
+
+
+
+
+
+Diseño Base de las Páginas
+General:
+El diseño de la app debe ser un diseño moderno y minimalista.
+Página Home
+Lo esperado en la página:
+
+
+Buscador:
+Título: Verifica la veracidad en Política usando IA.
+Buscador de nombre y botón buscar
+
+
+Estadísticas y métricas:
+* Ranking de políticos con más veracidad / con menos veracidad. 
+
+
+Subtitulo: Analiza links de declaraciones, artículos y publicaciones en youtube para descubrir los hechos detrás del discurso político.Comparación de IAs en veracidad según la votación de la comunidad.
+* Comparación de medios más votados por la comunidad como medio fehaciente y menos fehaciente.
+* Temas Públicos: ranking de los temas públicos más votados por la comunidad . Se pueden ver según el mes y abarcan 1 año.
+* Últimos links revisados: hacer una lista de los últimos materiales revisados o los más votados por la comunidad.
+
+
+
+
+Página Perfil de Político:
+Se esperan ver los datos relevantes del político, La lista de Fuentes y los Reportes creados hasta el momento. Incluso considerar la cantidad de vistas de la pagina o las opciones para ser compartida en redes sociales, whatsapp, correo ,etc.
+Se espera ver los análisis de cada modelo de IA por separado de manera clara. Y una estadística general que defina la veracidad del político utilizando todos los reportes creados por las IAs.
+
+
+
+
+
+
+
+
+Modelos para el proyecto:
+
+
+Modelo Usuarios:
+* Los usuarios pueden votar Temas públicos mensualmente. Tienen 5 puntos que pueden distribuir en los distintos temas públicos a disposición. pueden darle hasta 3 puntos a un tema público para demostrar su prioridad. Esta información demuestra el nivel de preocupación de la población por un tema público en particular.
+* Los usuarios registrados validan los links aportados por la comunidad . Debemos buscar una escala sencilla. Por ejemplo: verás, dudoso, falso. 
+* Los usuarios pueden sugerir temas públicos. Debemos buscar la forma de darle el medio de comunicación al usuario. Por ejemplo, añadir esto en el formulario de contacto con policheck. Los datos obligatorios son el nombre del tema político y su descripción. Luego buscaremos está información y con IA haremos un análisis de estos temas para ver si ya existen o no en la app y si son relevantes. También usaremos canales de comunicación con la comunidad como una cuenta de discord y un canal de Youtube para dar noticias de los resultados de policheck.
+
+
+Temas públicos (TP): 
+* Los temas públicos (o TP) son los temas de preocupación de la comunidad y que sugieren a la plataforma. Cuando estos temas son validados y argumentados pasan al glosario de la app para ser revisados públicamente. Esto es para tener una única definición del tema público y evitar subjetividad en su interpretación.
+* Hay que buscar si “Temas Públicos” es el mejor nombre para describir estos conceptos. También analizar estudios políticos para saber si estos puntos ya han sido analizados y presentados a la ciudadanía de una forma sencilla y clara.
+* Los temas públicos son unos puntos claves que usarán las IAs en la revisión de los links aportados por la comunidad. Además de la veracidad y coherencia de los políticos.
+* Debemos buscar definir las categorías y subcategorías de los temas públicos para que sean sencillos de entender por la comunidad y también evitar que exista una cantidad excesiva de ellos para hablar de algún tema. Por ejemplo podría haber categorías: Salud, Seguridad, etc. Y dentro de Seguridad: Crímenes, Robo con violencia, narcotráfico, etc. 
+* Las categorías deberían clasificarse por colores o algo similar para un fácil reconocimiento. Las categorías principales deberían tener un color base y sus subcategorías un color más tenue de este mismo color. Por ejemplo: Si existe la categoria (Tema publico) principal “Seguridad” de color rojo, el sub tema publico “Robo con violencia”, seria un rojo tenue. 
+* Ayudaría mucho que en los datos de los usuarios estuvieran entre otros : rango de edad, sexo, comuna y región donde vive para hacer estadísticas y saber entre otras cosas que temas públicos demandan las personas segun su edad, zona, sexo, etc.
+
+
+Glosario
+* El glosario es el listado de las distintas definiciones que se dan en la app PoliCheck. Debería ser similar a un Wiki. Con una forma fácil de buscar y acceder a la información.
+* Los datos publicados deberían tener una última fecha de modificación para saber su actualización.
+* Debe contar con un buscador.
+* Aquí se definen entre otros datos: Los detalles de los Temas Públicos, Los modelos de IAs, Temas Politicos, leyes, etc.
+* Supongo que debería tener un formato sencillo como Markdown.
+
+
+
+
+
+
+
+
+
+
+Lista de Fuentes:
+La lista de fuentes es una lista en cada perfil de los políticos registrados en PoliCheck. Se debe buscar un lugar atractivo en la pantalla para que sea fácil de ver y de interactuar. Sugiero por el momento que aparezca de forma similar como aparece la lista de fuentes en https://notebooklm.google/ . En la lista de fuentes de policheck se ingresan los links con el material para su revisión. El material lo adjunta la comunidad registrada en PoliCheck. Sobre la lista de fuentes se encuentra el botón Agregar Fuente (Habilitado solo para usuarios registrados).
+
+
+Material publicado por la comunidad PoliCheck dentro de la Lista de fuentes:
+* Links de artículos.
+* Links de noticias.
+* Links de videos en Youtube. 
+El material al ser añadido a la lista mostrará su link, su título si existe y su fuente, para ser fácilmente visible para el usuario. Junto a esta información existe el botón de votación y junto a él la cantidad de votaciones según el criterio (Verdad, media verdad, falso, o similar) y el porcentaje de veracidad. Se pide a la IA analizar lo dicho por la lista de fuentes y buscar mejoras. 
+
+
+Diseño de la lista de fuentes de PoliCheck:
+
+
+* Debe separar las fuentes entre validadas por la comunidad y las que aún no han sido validadas. Validar significa que los usuarios han votado por si la fuente es : Veras, dudoso, falso. También considerar qué hacer en caso de material que sea irrelevante, y que no tenga relación con el político o lo que se desea medir en la lista de fuentes.
+* El cuerpo de las fuentes debería tener mínimo los siguientes campos: Título, link , mini estadísticas con las votaciones de la comunidad, fecha de publicación, cantidad de vistas al link publicado.
+* Se debe buscar la forma de validación para que no haya material repetido en la lista de fuentes.
+* Lógica de la lista de fuentes: está lógica debe ser analizada para buscar la mejor alternativa de forma realista. Por ahora considero 2 posibilidades pero debo solicitar ayuda a la IA para que me ayude a buscar las mejores opciones: 
+   1. Que la fuente que ya cumple los criterios de validación para ser considerada “Verdad” debe ser analizada por una IA menor para obtener la información que deseamos alimente a las 4 IAs principales. Este material debe ser fácil de entender para las IAs principales pero a su vez deberíamos considerar que sea público, por lo que podría generarse en formato MD. Para una fácil lectura. 
+   2. Que la fuente que ya cumple los criterios de validación se sume a toda la pila de fuentes en el mismo estado , y luego de un tiempo definido, todas estas fuentes sean validadas por la 4 IAs principales. Las 4 IAs principales trabajan de forma independiente. Y solo entregan en un formato estándar su revisión para la publicación en la página.
+
+
+
+
+Uso de las IAs en PoliCheck
+
+
+Definición:
+Los modelos de IAs se utilizarán para analizar el material añadido por la comunidad de PoliCheck en las Listas de Fuentes. El material adjuntado será revisado. Utilizaremos los 4 modelos de IAs más votadas en https://lmarena.ai/ . Hasta el momento los 4 modelos más valorados son: CHAT GPT 03, Google Gemini 2.5 pro, Grok 4, Claude Sonnet 4.  La elección de los modelos de IAs serán renovados de forma mensual. Se utilizará el portal openrouter.com para el uso de los modelos.  Se destaca el nombre del modelo o el icono de su compañía cuando hagamos referencia del modelo en la app. 
+
+
+Reportes de los modelos de IA:
+
+
+Los reportes buscarán ofrecer la siguientes respuestas:
+* Un resumen del Nivel de coherencia de veracidad del político entre los distintos materiales publicados en la Lista de Fuentes asignada al Político en cuestión.
+* Un resumen de Referencia de los Temas Públicos que menciona el político en el material añadido a la Lista de Fuentes.  para indicar el espectro de referencias clave que menciona el político o el material que maneja  .
+* También se desea mostrar un resúmen de contradicciones del político en las fuentes.
+* Se debe analizar si los aportes de la comunidad con poca credibilidad deben ser considerados o no en los reportes.
+* Sería ideal que el Reporte indique la fecha de su generación, los datos utilizados y ofrecer datos para gráficos. Por lo que una recomendación es que estos reportes sean en JSON o Markdown.
+Se van a diferenciar los modelos de IAs que usaremos en la fase de desarrollo y la fase de producción. Debido a los altos costos de los modelos de IA ubicados en los ranking, utilizaremos modelos económicos o gratuitos en la fase de desarrollo.
+
+
+Modelos de prueba: Son económicos o gratuitos. Los usaremos solo para hacer pruebas, debido a mi presupuesto. Los modelos que usaremos en modo prueba son: 
+* google/gemma-3-27b-it ,
+* openai/gpt-4o-mini ,
+* google/gemini-2.5-flash-lite-preview-06-17,
+* deepseek/deepseek-chat-v3-0324.
+
+
+Modelos Definitivos: serían los modelos que usaremos definitivos en la app . Usando la encuesta de https://lmarena.ai/ usaremos los 4 primeros. Por costo tratare de no utilizarlos hasta contar con unos ingresos extras. Por ahora serian : 
+* openai/gpt-4.1 , 
+* anthropic/claude-sonnet-4 ,
+* google/gemini-2.5-pro , 
+* x-ai/grok-4
+
+
+
+
+Sugerencias de Metodologías y formas de métricas por Chat GPT 03
+Desarrollo de PolicheckMetodología y Métricas
+
+
+Enfoque general: diseño mixto secuencial explicativo (quant → qual). Primero generamos métricas cuantitativas (veracidad, coherencia, consenso entre IAs, calidad de fuentes y votos) y luego realizamos análisis cualitativo de casos para explicar los números y ajustar reglas. Se aplican principios de transparencia del fact-checking (IFCN) y se publica cada verificación con marcado ClaimReview.Definiciones operativas
+* Fuente verificada: enlace público que supera umbrales mínimos de confiabilidad/validación comunitaria.
+* Afirmación (claim): frase verificable atribuida al político (p. ej., “Bajamos la inflación al 3% en 2024”).
+* Tema público: categoría priorizada por la comunidad (p. ej., Empleo, Pensiones, Seguridad).
+* Período de análisis: ventana temporal (semanal/mensual) por político y tema.
+Proceso de análisis (pipeline)
+1. Curación comunitaria y filtros: solo pasan a “verificadas” las fuentes que superan umbrales (votos, dominio confiable, metadatos).
+2. Extracción de afirmaciones: detección de frases chequeables con cita textual, fecha y URL.
+3. Búsqueda de evidencia (RAG): priorizar evidencia primaria/oficial y medios de alta reputación.
+4. Verificación (FEVER): etiquetar cada afirmación como Soportada / Refutada / Sin evidencia suficiente (NEI).
+5. Coherencia temporal (NLI): comparar afirmaciones del mismo actor/tema en el tiempo para detectar consistencia, contradicción o neutralidad.
+6. Múltiples modelos de IA: ejecutar verificación y NLI con varios modelos (p. ej., GPT-4, Gemini, Claude) y medir acuerdo; si el acuerdo ≤ 60%, revisión humana.
+7. Agregación de votos (Dawid-Skene): estimar la verdad latente y la confiabilidad individual de votantes, ponderando sus votos.
+8. Publicación transparente: mostrar afirmación, etiqueta, evidencia con enlaces y fecha; publicar marcado ClaimReview y política de correcciones.
+Métricas principalesÍndice de Veracidad (IV)
+
+
+Fórmula (simple): IV = ((Soportadas − Refutadas) / (Soportadas + Refutadas)) × 100. Rango: −100 a +100. NEI no empuja el índice (puede reportarse aparte).
+
+
+Ejemplo: 7 Soportadas, 3 Refutadas, 2 NEI → IV = (7−3)/(7+3)×100 = 40. Interpretación: balance positivo de veracidad ese mes.
+
+
+Opcional (ponderado): multiplicar por peso según calidad de evidencia (primaria > secundaria) y por consenso comunitario estimado por Dawid-Skene.Índice de Coherencia (IC)
+
+
+Procedimiento: generar pares de afirmaciones del mismo tema/actor (ventana p. ej., 24 meses) y clasificarlas con NLI (entailment/contradiction/neutral).
+
+
+Fórmula: IC = (1 − Contradicciones_ponderadas / Pares_evaluados) × 100. Contradicciones recientes o en temas prioritarios pesan más.
+
+
+Ejemplo: 20 pares; 3 contradicciones, 5 neutrales, 12 consistentes → IC = (1 − 3/20)×100 = 85 (alta coherencia).Consenso entre modelos de IA (CI)
+
+
+Fórmula: CI = (# afirmaciones con mismo veredicto en ≥ 2/3 modelos / # total de afirmaciones evaluadas por ≥ 2 modelos) × 100.
+
+
+Regla: si CI ≤ 60% en un lote, se eleva a revisión manual.Calidad comunitaria y trazabilidad
+* Confiabilidad inter-evaluador (curadores): reportar % acuerdo y Cohen’s kappa.
+* Publicar # de fuentes usadas por verificación y % de evidencia primaria.
+* Latencia: tiempo entre aporte de fuente y publicación del veredicto.
+Ejemplos (modo usuario)
+* Veracidad (FEVER): “Bajamos la inflación al 3% en 2024”. Evidencia oficial indica 3,7% → Etiqueta: Refutada (−1 en IV).
+* Coherencia (NLI): 2023 “Subiremos la edad de jubilación”; 2025 “No subiremos la edad de jubilación” → Contradicción (disminuye IC en Pensiones).
+* Consenso IA: 7 de 10 afirmaciones con mismo veredicto en ≥ 2/3 modelos → CI = 70% (no requiere revisión).
+Referencias clave
+* IFCN – Code of Principles (Poynter).
+* Google Developers – Fact Check (ClaimReview).
+* Schema.org – ClaimReview / Rating.
+* FEVER dataset/paper.
+* Natural Language Inference (NLI).
+* Dawid-Skene (EM).
+* Cohen’s kappa.
+* Mixed Methods – Explanatory Sequential.
+Definiciones clave (veracidad, coherencia, consenso IA y Temas Públicos)1) Veracidad (a nivel de afirmación)
+
+
+Usamos el esquema FEVER: cada afirmación atribuible a un político se etiqueta como:
+* Soportada (Supported): la evidencia respalda la afirmación.
+* Refutada (Refuted): la evidencia contradice la afirmación.
+* NEI – Sin evidencia suficiente (NotEnoughInfo): no hay evidencia adecuada para concluir.
+Publicamos cada verificación con cita textual, fecha y enlaces a la evidencia.
+
+
+Ejemplo práctico:
+
+
+Afirmación: “Bajamos la inflación al 3% en 2024”.
+Evidencia: boletín oficial indica 3,7% anual 2024 → Etiqueta: Refutada.2) Coherencia (consistencia en el tiempo)
+
+
+Comparamos pares de citas del mismo político dentro de un Tema Público y aplicamos NLI:
+* Entailment (consistencia): la segunda cita es compatible con la primera.
+* Contradiction (contradicción): la segunda cita niega o se opone a la primera.
+* Neutral: no hay relación clara.
+El Índice de Coherencia (IC) resume la proporción de pares sin contradicción en una ventana temporal (p. ej., 24 meses).
+
+
+Ejemplo: 20 pares; 3 contradicciones → IC = (1 − 3/20) × 100 = 85.3) Consenso entre modelos de IA
+
+
+Ejecutamos la verificación y la coherencia con varios modelos (p. ej., GPT-4, Gemini, Claude) y calculamos el acuerdo:
+* CI = % de afirmaciones con el mismo veredicto en ≥ 2/3 de los modelos.
+* Regla operativa: si CI ≤ 60%, se eleva a revisión humana.
+4) Calidad comunitaria (agregación de votos)
+
+
+Para evitar sesgos de brigadas o cuentas poco confiables, usamos un agregador estadístico (Dawid-Skene) que:
+* Estima la 'verdad latente' a partir de votos ruidosos.
+* Asigna mayor peso a usuarios históricamente precisos.
+También reportamos confiabilidad entre moderadores con Cohen’s kappa.5) Temas Públicos (TP): cómo se integran
+* Organización: todas las afirmaciones y métricas se agrupan por TP (p. ej., Pensiones, Seguridad, Empleo).
+* Relevancia: los TP priorizados por la comunidad pueden ponderar más en los índices (especialmente en coherencia).
+* Visualización: se muestran IV e IC por TP y su tendencia en el tiempo, para que la ciudadanía evalúe desempeño por tema.
+Resumen operativo (para el equipo)
+Filtrar y validar fuentes → 2) Extraer afirmaciones → 3) Buscar evidencia → 4) Etiquetar (FEVER) → 5) Medir coherencia (NLI) → 6) Calcular consenso multi-IA → 7) Agregar votos con Dawid-Skene → 8) Publicar con ClaimReview y política de correcciones.
+
+
+
+
+Metodología y Métricas de Policheck
+
+
+Nuestro enfoque en Policheck se basa en un diseño mixto secuencial explicativo, que combina análisis cuantitativos con cualitativos. Iniciamos generando métricas numéricas (veracidad, coherencia, consenso entre IAs, calidad de fuentes y votaciones) para luego realizar estudios de caso cualitativos que nos permiten interpretar los resultados y afinar nuestras reglas. Adherimos a los principios de transparencia del fact-checking (IFCN) y publicamos cada verificación con el marcado ClaimReview.
+
+
+Definiciones Clave
+* Fuente verificada: Enlace público que cumple con umbrales mínimos de fiabilidad o validación comunitaria.
+* Afirmación (claim): Declaración verificable atribuida a un político (ej., “Redujimos la inflación al 3% en 2024”).
+* Tema público: Categoría priorizada por la comunidad (ej., Empleo, Pensiones, Seguridad).
+* Período de análisis: Ventana de tiempo (semanal/mensual) específica por político y tema.
+Proceso de Análisis (Pipeline)
+1. Curación comunitaria y filtros: Solo las fuentes que superan ciertos umbrales (votos, dominio confiable, metadatos) son consideradas "verificadas".
+2. Extracción de afirmaciones: Se identifican frases verificables con cita textual, fecha y URL.
+3. Búsqueda de evidencia (RAG): Se prioriza la evidencia primaria/oficial y de medios de alta reputación.
+4. Verificación (FEVER): Cada afirmación se clasifica como Soportada, Refutada o Sin Evidencia Suficiente (NEI).
+5. Coherencia temporal (NLI): Se comparan afirmaciones del mismo actor/tema a lo largo del tiempo para detectar consistencia, contradicción o neutralidad.
+6. Múltiples modelos de IA: La verificación y NLI se ejecutan con varios modelos (ej., GPT-4, Gemini, Claude) y se mide su acuerdo; si el acuerdo es ≤ 60%, se requiere revisión humana.
+7. Agregación de votos (Dawid-Skene): Se estima la verdad subyacente y la fiabilidad de cada votante, ponderando sus votos.
+8. Publicación transparente: Se exhibe la afirmación, su etiqueta, la evidencia con enlaces y la fecha, incluyendo el marcado ClaimReview y una política de correcciones.
+Métricas Principales
+* Índice de Veracidad (IV):
+   * Fórmula (simple): IV = ((Soportadas − Refutadas) / (Soportadas + Refutadas)) × 100. Varía de −100 a +100. Las afirmaciones NEI no influyen en el índice.
+   * Ejemplo: 7 Soportadas, 3 Refutadas, 2 NEI → IV = (7−3)/(7+3)×100 = 40. Indica un balance de veracidad positivo para el mes.
+   * Opcional (ponderado): Puede multiplicarse por el peso según la calidad de la evidencia (primaria > secundaria) y el consenso comunitario estimado por Dawid-Skene.
+* Índice de Coherencia (IC):
+   * Procedimiento: Se generan pares de afirmaciones del mismo tema/actor (ej., en una ventana de 24 meses) y se clasifican con NLI (entailment/contradiction/neutral).
+   * Fórmula: IC = (1 − Contradicciones_ponderadas / Pares_evaluados) × 100. Las contradicciones recientes o en temas prioritarios tienen mayor peso.
+   * Ejemplo: 20 pares; 3 contradicciones, 5 neutrales, 12 consistentes → IC = (1 − 3/20)×100 = 85 (alta coherencia).
+* Consenso entre modelos de IA (CI):
+   * Fórmula: CI = (# afirmaciones con el mismo veredicto en ≥ 2/3 modelos / # total de afirmaciones evaluadas por ≥ 2 modelos) × 100.
+   * Regla: Si CI ≤ 60% en un lote, se remite a revisión manual.
+* Calidad comunitaria y trazabilidad:
+   * Confiabilidad inter-evaluador (curadores): Se reporta el % de acuerdo y el kappa de Cohen.
+   * Se publica el número de fuentes utilizadas por verificación y el % de evidencia primaria.
+   * Latencia: Tiempo desde el aporte de la fuente hasta la publicación del veredicto.
+Ejemplos de Uso (Modo Usuario)
+* Veracidad (FEVER): Afirmación: “Redujimos la inflación al 3% en 2024”. Evidencia oficial: 3.7% → Etiqueta: Refutada (−1 en IV).
+* Coherencia (NLI): 2023 “Subiremos la edad de jubilación”; 2025 “No subiremos la edad de jubilación” → Contradicción (disminuye IC en Pensiones).
+* Consenso IA: 7 de 10 afirmaciones con el mismo veredicto en ≥ 2/3 modelos → CI = 70% (no requiere revisión).
+Referencias Clave
+* IFCN – Code of Principles (Poynter)
+* Google Developers – Fact Check (ClaimReview)
+* Schema.org – ClaimReview / Rating
+* FEVER dataset/paper
+* Natural Language Inference (NLI)
+* Dawid-Skene (EM)
+* Cohen’s kappa
+* Mixed Methods – Explanatory Sequential
+Definiciones Adicionales
+1. Veracidad (a nivel de afirmación):
+   * Se utiliza el esquema FEVER, etiquetando cada afirmación política como:
+      * Soportada: La evidencia apoya la afirmación.
+      * Refutada: La evidencia contradice la afirmación.
+      * NEI (Sin evidencia suficiente): No hay evidencia adecuada para una conclusión.
+   * Cada verificación se publica con la cita textual, fecha y enlaces a la evidencia.
+   * Ejemplo práctico: Afirmación: “Redujimos la inflación al 3% en 2024”. Evidencia: boletín oficial indica 3.7% anual en 2024 → Etiqueta: Refutada.
+2. Coherencia (consistencia en el tiempo):
+   * Se comparan pares de citas del mismo político dentro de un Tema Público usando NLI:
+      * Entailment (consistencia): La segunda cita es compatible con la primera.
+      * Contradiction (contradicción): La segunda cita niega u opone a la primera.
+      * Neutral: No hay relación clara.
+   * El Índice de Coherencia (IC) resume la proporción de pares sin contradicción en un período de tiempo (ej., 24 meses).
+   * Ejemplo: 20 pares; 3 contradicciones → IC = (1 − 3/20) × 100 = 85.
+3. Consenso entre modelos de IA:
+   * La verificación y coherencia se ejecutan con varios modelos (ej., GPT-4, Gemini, Claude) calculando el acuerdo:
+      * CI = % de afirmaciones con el mismo veredicto en ≥ 2/3 de los modelos.
+      * Regla operativa: Si CI ≤ 60%, se eleva a revisión humana.
+4. Calidad comunitaria (agregación de votos):
+   * Para evitar sesgos, se utiliza un agregador estadístico (Dawid-Skene) que:
+      * Estima la "verdad latente" a partir de votos.
+      * Asigna mayor peso a usuarios históricamente precisos.
+   * También se reporta la confiabilidad entre moderadores con el kappa de Cohen.
+5. Temas Públicos (TP): cómo se integran:
+   * Organización: Todas las afirmaciones y métricas se agrupan por TP (ej., Pensiones, Seguridad, Empleo).
+   * Relevancia: Los TP priorizados por la comunidad pueden tener más peso en los índices (especialmente en coherencia).
+   * Visualización: Se muestran los IV e IC por TP y su evolución temporal para que los ciudadanos evalúen el desempeño por tema.
+Resumen Operativo (para el equipo)
+1. Filtrar y validar fuentes.
+2. Extraer afirmaciones.
+3. Buscar evidencia.
+4. Etiquetar (FEVER).
+5. Medir coherencia (NLI).
+6. Calcular consenso multi-IA.
