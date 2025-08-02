@@ -11,13 +11,7 @@ import { notFound } from "next/navigation";
 import { AddSourceForm } from "@/components/politicians/AddSourceForm";
 import { SourceList } from "@/components/politicians/SourceList";
 
-interface PoliticianProfilePageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default async function PoliticianProfilePage({ params }: PoliticianProfilePageProps) {
+export default async function PoliticianProfilePage({ params }: { params: { id: string } }) {
   const { id } = params;
 
   const { data: politician, error } = await supabase
