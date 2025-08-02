@@ -42,6 +42,15 @@ PoliCheck es una plataforma web colaborativa para la transparencia política en 
     6.  **Verificar en `page.tsx`**: Limpiar la página de inicio y aplicar el nuevo layout.
     7.  **Crear Cliente de Supabase**: Centralizar la conexión en `src/lib/supabase.ts`.
 
+- **2025-08-02:**
+  - **Inicio de Fase 2 y Desarrollo del Perfil de Político.**
+  - Se comenzó el trabajo en la **Fase 2 (Producto Mínimo Viable)**.
+  - Se crearon los componentes `AddSourceForm` y `SourceList` para gestionar las fuentes de información.
+  - Se implementó el endpoint API `/api/analyze` que utiliza `cheerio` para extraer el título de una URL y guardarla en la tabla `sources` de Supabase.
+  - Se integraron los componentes en la página de perfil del político (`/politicos/[id]`), permitiendo añadir fuentes y refrescar la lista dinámicamente con `router.refresh()`.
+  - Se solucionaron múltiples errores, incluyendo la falta de dependencias (`geist`, `input`) y la configuración de políticas RLS en Supabase para permitir el acceso público a los datos.
+  - **Problema pendiente:** Persiste un error de tipado (`PageProps`) durante el `build` de producción (`npm run build`). Se acordó posponer su solución y continuar el desarrollo con `npm run dev` para no bloquear el avance funcional.
+
 - **2025-07-19 (Proyecto Anterior):**
   - **Solución a Problemas de Conexión con Supabase:** Se resolvieron los problemas de conexión con la base de datos remota. La solución consistió en:
     1. Instalar la CLI de Supabase como una dependencia de desarrollo local del proyecto: `npm install supabase --save-dev`.
