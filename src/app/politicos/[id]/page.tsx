@@ -17,7 +17,9 @@ interface PoliticianProfilePageProps {
   };
 }
 
-export default async function PoliticianProfilePage({ params: { id } }: PoliticianProfilePageProps) {
+export default async function PoliticianProfilePage({ params }: PoliticianProfilePageProps) {
+  const { id } = params;
+
   const { data: politician, error } = await supabase
     .from("politicians")
     .select("*")
