@@ -13,11 +13,27 @@ export function AddSourceForm({ politicianId }: { politicianId: string }) {
     e.preventDefault();
     if (!url) return;
     setLoading(true);
-    // TODO: Implement API call to add source
-    console.log(`Adding source for ${politicianId}: ${url}`);
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network request
-    setLoading(false);
-    setUrl("");
+    try {
+      const response = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url, politicianId }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al añadir la fuente');
+      }
+
+      // TODO: Idealmente, refrescar la lista de fuentes
+      setUrl("");
+    } catch (error) {
+      console.error(error);
+      // TODO: Mostrar un mensaje de error al usuario
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

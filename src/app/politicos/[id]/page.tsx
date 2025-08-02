@@ -8,6 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { notFound } from "next/navigation";
+import { AddSourceForm } from "@/components/politicians/AddSourceForm";
+import { SourceList } from "@/components/politicians/SourceList";
 
 interface PoliticianProfilePageProps {
   params: {
@@ -15,11 +17,11 @@ interface PoliticianProfilePageProps {
   };
 }
 
-export default async function PoliticianProfilePage({ params }: PoliticianProfilePageProps) {
+export default async function PoliticianProfilePage({ params: { id } }: PoliticianProfilePageProps) {
   const { data: politician, error } = await supabase
     .from("politicians")
     .select("*")
-    .eq("id", params.id)
+    .eq("id", id)
     .single();
 
   if (error || !politician) {
@@ -46,6 +48,12 @@ export default async function PoliticianProfilePage({ params }: PoliticianProfil
           <p className="text-muted-foreground">{politician.bio}</p>
         </CardContent>
       </Card>
+
+      <div className="mt-8">
+        <AddSourceForm politicianId={politician.id} />
+      </div>
+
+      <SourceList politicianId={politician.id} />
     </div>
   );
 }
