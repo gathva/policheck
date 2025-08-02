@@ -85,55 +85,101 @@ src/app/
 
 **Base de Datos**: Supabase (PostgreSQL)
 
-**Esquema Principal**:
+**Esquema Principal** (Estado Actual - Enero 2025):
 ```sql
--- Políticos
+-- Políticos (✅ IMPLEMENTADO Y POBLADO)
 CREATE TABLE politicians (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     full_name TEXT NOT NULL,
-    party TEXT,
+    political_party TEXT,
     position TEXT,
     bio TEXT,
-    created_at TIMESTAMP DEFAULT NOW()
+    image_url TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+-- Datos actuales: 5 políticos chilenos registrados
 
--- Fuentes de información
+-- Fuentes de información (✅ IMPLEMENTADO Y POBLADO)
 CREATE TABLE sources (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    politician_id UUID REFERENCES politicians(id),
+    politician_id UUID REFERENCES politicians(id) NOT NULL,
     url TEXT NOT NULL,
-    title TEXT,
-    status TEXT DEFAULT 'pending',
-    analysis_result JSONB,
-    created_at TIMESTAMP DEFAULT NOW()
+    title TEXT NOT NULL,
+    content TEXT,
+    source_type TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+-- Datos actuales: 6 fuentes distribuidas entre políticos
 
--- Sistema de votación
+-- Sistema de votación (✅ IMPLEMENTADO - PENDIENTE POBLADO)
 CREATE TABLE votes (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    source_id UUID REFERENCES sources(id),
-    user_id UUID,
-    vote_type TEXT CHECK (vote_type IN ('accurate', 'inaccurate')),
-    created_at TIMESTAMP DEFAULT NOW()
+    source_id UUID REFERENCES sources(id) NOT NULL,
+    user_id UUID NOT NULL, -- Referencias auth.users
+    vote_type TEXT NOT NULL CHECK (vote_type IN ('accurate', 'inaccurate')),
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
+-- Estructura lista para sistema de votación
 
--- Categorías de temas
+-- Categorías de temas (✅ IMPLEMENTADO Y POBLADO)
 CREATE TABLE topic_categories (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
     description TEXT,
-    created_at TIMESTAMP DEFAULT NOW()
+    color_hex CHARACTER VARYING NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+-- Datos actuales: 6 categorías con colores (Economía, Seguridad, etc.)
 
--- Temas públicos
-CREATE TABLE public_topics (
+-- Temas específicos (✅ IMPLEMENTADO Y POBLADO)
+CREATE TABLE topics (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     category_id UUID REFERENCES topic_categories(id),
-    title TEXT NOT NULL,
+    name TEXT NOT NULL,
     description TEXT,
-    created_at TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+-- Datos actuales: 5 temas específicos vinculados a categorías
+
+-- Votación por temas (✅ IMPLEMENTADO - PENDIENTE POBLADO)
+CREATE TABLE topic_votes (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    topic_id UUID REFERENCES topics(id) NOT NULL,
+    politician_id UUID REFERENCES politicians(id) NOT NULL,
+    user_id UUID NOT NULL,
+    vote_value INTEGER NOT NULL CHECK (vote_value >= 1 AND vote_value <= 5),
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+-- Estructura lista para votación por temas
+
+-- Reportes de IA (✅ IMPLEMENTADO - PENDIENTE POBLADO)
+CREATE TABLE ai_reports (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    politician_id UUID REFERENCES politicians(id) NOT NULL,
+    report_type TEXT NOT NULL,
+    content JSONB NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+-- Estructura lista para reportes automáticos de IA
 ```
+
+### 📊 Estado Actual de Datos (Enero 2025)
+
+**✅ Tablas Pobladas y Funcionales:**
+- **politicians**: 5 registros (políticos chilenos)
+- **sources**: 6 registros (fuentes variadas)
+- **topic_categories**: 6 registros (categorías temáticas)
+- **topics**: 5 registros (temas específicos)
+
+**⚠️ Tablas Preparadas (Estructura Lista):**
+- **votes**: Lista para sistema de votación
+- **topic_votes**: Lista para votación por temas
+- **ai_reports**: Lista para reportes de IA
+
+**🔧 Configuración Actual:**
+- RLS temporalmente deshabilitado para desarrollo
+- Todas las restricciones de integridad funcionando
+- Índices automáticos en claves primarias y foráneas
 
 ---
 
