@@ -2,15 +2,24 @@ import { supabase } from "@/lib/supabase";
 import { PoliticianCard } from "@/components/politicians/PoliticianCard";
 import { Search, Users2, ShieldCheck } from "lucide-react";
 
+interface PoliticianRow {
+  id: string;
+  full_name: string;
+  political_party: string;
+  position: string;
+  profile_image_url: string | null;
+}
+
 // Agrupar políticos por partido
-function groupByParty(politicians: any[]) {
-  return politicians.reduce((acc: Record<string, any[]>, p) => {
+function groupByParty(politicians: PoliticianRow[]) {
+  return politicians.reduce((acc: Record<string, PoliticianRow[]>, p) => {
     const party = p.political_party || "Independiente";
     if (!acc[party]) acc[party] = [];
     acc[party].push(p);
     return acc;
   }, {});
 }
+
 
 export default async function Home() {
   const { data: politicians, error } = await supabase
