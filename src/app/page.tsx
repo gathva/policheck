@@ -118,7 +118,7 @@ export default async function Home() {
 
               {/* Grid de tarjetas */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {grouped[party].map((politician: any) => (
+                {grouped[party].map((politician) => (
                   <PoliticianCard key={politician.id} politician={politician} />
                 ))}
               </div>
