@@ -3,10 +3,11 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
 import { ThemeProvider } from "@/components/layout/theme-provider";
+import { Header } from "@/components/layout/header";
 
 export const metadata: Metadata = {
-  title: "PoliCheck",
-  description: "Verificación de datos políticos con IA.",
+  title: "PoliCheck — Transparencia Política con IA",
+  description: "Verificamos el discurso político chileno con múltiples modelos de IA y la colaboración de la comunidad.",
 };
 
 export default function RootLayout({
@@ -23,6 +24,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Header />
           {children}
         </ThemeProvider>
       </body>
