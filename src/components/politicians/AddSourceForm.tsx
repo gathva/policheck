@@ -35,8 +35,8 @@ export function AddSourceForm({ politicianId }: { politicianId: string }) {
       setUrl("");
       router.refresh(); // Refresca los datos del servidor
 
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Error al añadir la fuente');
     } finally {
       setLoading(false);
     }
