@@ -1,0 +1,287 @@
+{
+    "name": "PoliCheck - Workflow 2: Análisis Multi-IA",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "policheck-analyze",
+                "responseMode": "responseNode",
+                "options": {}
+            },
+            "id": "webhook-start",
+            "name": "Webhook: Analizar Fuente",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1.1,
+            "position": [
+                240,
+                400
+            ],
+            "notes": "Recibe: { source_id, politician_id, title, extracted_text, url }"
+        },
+        {
+            "parameters": {
+                "url": "https://openrouter.ai/api/v1/chat/completions",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "httpHeaderAuth",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "model",
+                            "value": "openai/gpt-4.1"
+                        },
+                        {
+                            "name": "messages",
+                            "value": "=[{ \"role\": \"system\", \"content\": \"Eres un analista político imparcial. Analiza la siguiente fuente de información sobre un político chileno y evalúa: 1) Veracidad (0-100): ¿Los hechos son verificables y precisos? 2) Coherencia (0-100): ¿El discurso es coherente con sus acciones? 3) Sesgo (texto libre): ¿Hay sesgo político notar? 4) Resumen ejecutivo (2-3 oraciones). Responde SOLO en JSON con este formato: {\\\"veracity_score\\\": number, \\\"coherence_score\\\": number, \\\"bias_analysis\\\": string, \\\"summary\\\": string, \\\"key_claims\\\": [string]}\" }, { \"role\": \"user\", \"content\": \"Título: \" + $json.body.title + \"\\n\\nContenido: \" + $json.body.extracted_text }]"
+                        },
+                        {
+                            "name": "max_tokens",
+                            "value": "=800"
+                        }
+                    ]
+                },
+                "options": {
+                    "timeout": 60000
+                }
+            },
+            "id": "gpt4-analysis",
+            "name": "GPT-4.1 Análisis",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                500,
+                180
+            ],
+            "notes": "Modelo: openai/gpt-4.1 via OpenRouter"
+        },
+        {
+            "parameters": {
+                "url": "https://openrouter.ai/api/v1/chat/completions",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "httpHeaderAuth",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "model",
+                            "value": "anthropic/claude-sonnet-4"
+                        },
+                        {
+                            "name": "messages",
+                            "value": "=[{ \"role\": \"system\", \"content\": \"Eres un analista político imparcial. Analiza la siguiente fuente de información sobre un político chileno y evalúa: 1) Veracidad (0-100): ¿Los hechos son verificables y precisos? 2) Coherencia (0-100): ¿El discurso es coherente con sus acciones? 3) Sesgo (texto libre): ¿Hay sesgo político notar? 4) Resumen ejecutivo (2-3 oraciones). Responde SOLO en JSON con este formato: {\\\"veracity_score\\\": number, \\\"coherence_score\\\": number, \\\"bias_analysis\\\": string, \\\"summary\\\": string, \\\"key_claims\\\": [string]}\" }, { \"role\": \"user\", \"content\": \"Título: \" + $json.body.title + \"\\n\\nContenido: \" + $json.body.extracted_text }]"
+                        },
+                        {
+                            "name": "max_tokens",
+                            "value": "=800"
+                        }
+                    ]
+                },
+                "options": {
+                    "timeout": 60000
+                }
+            },
+            "id": "claude-analysis",
+            "name": "Claude Sonnet 4 Análisis",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                500,
+                340
+            ],
+            "notes": "Modelo: anthropic/claude-sonnet-4 via OpenRouter"
+        },
+        {
+            "parameters": {
+                "url": "https://openrouter.ai/api/v1/chat/completions",
+                "authentication": "genericCredentialType",
+                "genericAuthType": "httpHeaderAuth",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "model",
+                            "value": "google/gemini-2.5-pro"
+                        },
+                        {
+                            "name": "messages",
+                            "value": "=[{ \"role\": \"system\", \"content\": \"Eres un analista político imparcial. Analiza la siguiente fuente de información sobre un político chileno y evalúa: 1) Veracidad (0-100): ¿Los hechos son verificables y precisos? 2) Coherencia (0-100): ¿El discurso es coherente con sus acciones? 3) Sesgo (texto libre): ¿Hay sesgo político notar? 4) Resumen ejecutivo (2-3 oraciones). Responde SOLO en JSON con este formato: {\\\"veracity_score\\\": number, \\\"coherence_score\\\": number, \\\"bias_analysis\\\": string, \\\"summary\\\": string, \\\"key_claims\\\": [string]}\" }, { \"role\": \"user\", \"content\": \"Título: \" + $json.body.title + \"\\n\\nContenido: \" + $json.body.extracted_text }]"
+                        },
+                        {
+                            "name": "max_tokens",
+                            "value": "=800"
+                        }
+                    ]
+                },
+                "options": {
+                    "timeout": 60000
+                }
+            },
+            "id": "gemini-analysis",
+            "name": "Gemini 2.5 Pro Análisis",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                500,
+                500
+            ],
+            "notes": "Modelo: google/gemini-2.5-pro via OpenRouter"
+        },
+        {
+            "parameters": {
+                "jsCode": "// Combina los resultados de los 3 análisis y los prepara para Supabase\nconst items = $input.all();\nconst sourceId = $('Webhook: Analizar Fuente').item.json.body.source_id;\nconst politicianId = $('Webhook: Analizar Fuente').item.json.body.politician_id;\n\nconst modelNames = ['openai/gpt-4.1', 'anthropic/claude-sonnet-4', 'google/gemini-2.5-pro'];\nconst results = [];\nlet totalVeracity = 0;\nlet validCount = 0;\n\nitems.forEach((item, index) => {\n  try {\n    const raw = item.json.choices?.[0]?.message?.content || '{}';\n    const parsed = JSON.parse(raw.replace(/```json\\n?|```/g, '').trim());\n    \n    results.push({\n      source_id: sourceId,\n      model_name: modelNames[index] || `modelo_${index}`,\n      report_json: parsed,\n      summary: parsed.summary || '',\n      veracity_score: parsed.veracity_score || null\n    });\n    \n    if (parsed.veracity_score) {\n      totalVeracity += parsed.veracity_score;\n      validCount++;\n    }\n  } catch(e) {\n    console.log('Error parseando modelo ' + index + ': ' + e.message);\n  }\n});\n\nconst avgVeracity = validCount > 0 ? (totalVeracity / validCount).toFixed(2) : null;\n\nreturn [{\n  json: {\n    reports: results,\n    source_id: sourceId,\n    politician_id: politicianId,\n    avg_veracity_score: avgVeracity,\n    models_used: validCount\n  }\n}];"
+            },
+            "id": "combine-results",
+            "name": "Combinar Análisis",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                760,
+                340
+            ]
+        },
+        {
+            "parameters": {
+                "url": "=https://alxidykzaoiupbnlxgcf.supabase.co/rest/v1/ai_reports",
+                "sendHeaders": true,
+                "headerParameters": {
+                    "parameters": [
+                        {
+                            "name": "apikey",
+                            "value": "={{ $env.SUPABASE_SERVICE_KEY }}"
+                        },
+                        {
+                            "name": "Authorization",
+                            "value": "=Bearer {{ $env.SUPABASE_SERVICE_KEY }}"
+                        },
+                        {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "name": "Prefer",
+                            "value": "return=minimal"
+                        }
+                    ]
+                },
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "",
+                            "value": "={{ JSON.stringify($json.reports) }}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "save-to-supabase",
+            "name": "Guardar en Supabase",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [
+                980,
+                340
+            ]
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "={{ JSON.stringify({ success: true, source_id: $('Combinar Análisis').item.json.source_id, models_used: $('Combinar Análisis').item.json.models_used, avg_veracity: $('Combinar Análisis').item.json.avg_veracity_score }) }}"
+            },
+            "id": "respond-ok",
+            "name": "Responder Éxito",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [
+                1200,
+                340
+            ]
+        }
+    ],
+    "connections": {
+        "Webhook: Analizar Fuente": {
+            "main": [
+                [
+                    {
+                        "node": "GPT-4.1 Análisis",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Claude Sonnet 4 Análisis",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Gemini 2.5 Pro Análisis",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "GPT-4.1 Análisis": {
+            "main": [
+                [
+                    {
+                        "node": "Combinar Análisis",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Claude Sonnet 4 Análisis": {
+            "main": [
+                [
+                    {
+                        "node": "Combinar Análisis",
+                        "type": "main",
+                        "index": 1
+                    }
+                ]
+            ]
+        },
+        "Gemini 2.5 Pro Análisis": {
+            "main": [
+                [
+                    {
+                        "node": "Combinar Análisis",
+                        "type": "main",
+                        "index": 2
+                    }
+                ]
+            ]
+        },
+        "Combinar Análisis": {
+            "main": [
+                [
+                    {
+                        "node": "Guardar en Supabase",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Guardar en Supabase": {
+            "main": [
+                [
+                    {
+                        "node": "Responder Éxito",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    },
+    "tags": [
+        {
+            "name": "policheck"
+        }
+    ]
+}
