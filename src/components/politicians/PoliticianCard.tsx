@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { ShieldCheck, AlertTriangle, HelpCircle } from "lucide-react";
 
@@ -80,12 +79,11 @@ export function PoliticianCard({ politician }: PoliticianCardProps) {
                     {/* Avatar / Foto */}
                     <div className="relative flex-shrink-0 h-16 w-16 rounded-full overflow-hidden border-2 border-border bg-muted">
                         {politician.profile_image_url ? (
-                            <Image
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img
                                 src={politician.profile_image_url}
                                 alt={politician.full_name}
-                                fill
-                                className="object-cover"
-                                sizes="64px"
+                                className="h-full w-full object-cover"
                                 referrerPolicy="no-referrer"
                             />
                         ) : (

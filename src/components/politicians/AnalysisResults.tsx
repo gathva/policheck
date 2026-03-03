@@ -3,12 +3,22 @@
 import { useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 
+interface AIReport {
+    id: string;
+    source_id: string;
+    model_name: string;
+    veracity_score: number | null;
+    coherence_score: number | null;
+    summary: string | null;
+    [key: string]: unknown;
+}
+
 export function AnalysisResults({ sourceId }: { sourceId: string }) {
-    const [reports, setReports] = useState<any[]>([]);
+    const [reports, setReports] = useState<AIReport[]>([]);
     const [loading, setLoading] = useState(true);
-    const supabase = createClient();
 
     useEffect(() => {
+        const supabase = createClient();
         let interval: NodeJS.Timeout;
 
         const fetchReports = async () => {
