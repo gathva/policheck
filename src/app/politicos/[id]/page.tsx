@@ -1,4 +1,3 @@
-import { supabase } from "@/lib/supabase";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Card,
@@ -10,10 +9,15 @@ import {
 import { notFound } from "next/navigation";
 import { AddSourceForm } from "@/components/politicians/AddSourceForm";
 import { SourceList } from "@/components/politicians/SourceList";
+import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default async function PoliticianProfilePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
 
   const { data: politician, error } = await supabase
     .from("politicians")
@@ -46,8 +50,20 @@ export default async function PoliticianProfilePage({ params }: { params: Promis
         </CardContent>
       </Card>
 
-      <div className="mt-8">
-        <AddSourceForm politicianId={politician.id} />
+      <div className="mt-8 border rounded-xl p-6 bg-card/50">
+        <h3 className="text-xl font-semibold mb-4">Aportar información</h3>
+        {user ? (
+          <AddSourceForm politicianId={politician.id} />
+        ) : (
+          <div className="flex flex-col items-center justify-center p-6 text-center space-y-4">
+            <p className="text-muted-foreground">
+              Para añadir o verificar fuentes de información, necesitas iniciar sesión en PoliCheck.
+            </p>
+            <Button asChild variant="default">
+              <Link href="/login">Iniciar sesión</Link>
+            </Button>
+          </div>
+        )}
       </div>
 
       <SourceList politicianId={politician.id} />
