@@ -1,0 +1,469 @@
+{
+  "name": "PoliCheck - Workflow Unificado (Modo DEV)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "policheck-process",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "29ff83e6-aadf-4625-9644-dc609fcb2cd8",
+      "name": "Webhook: Iniciar Proceso",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        -1200,
+        272
+      ],
+      "webhookId": "cf3d1f3a-585d-4aad-8c23-0c01f1318785",
+      "notes": "Recibe: { source_id, url, source_type, politician_id }"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true
+          },
+          "conditions": [
+            {
+              "id": "youtube-check",
+              "leftValue": "={{ $json.body.url }}",
+              "rightValue": "youtube.com",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b407031e-a1ec-4cf3-a5e7-2da544c688aa",
+      "name": "¿Es YouTube?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -976,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://www.youtube.com/watch?v={{ $json.body.url.split('v=')[1] || $json.body.url.split('youtu.be/')[1] }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "c7b79bbe-dd54-494e-a20f-c6f20e394279",
+      "name": "Obtener página YouTube",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -752,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Webhook: Iniciar Proceso').item.json.body.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          },
+          "timeout": 30000
+        }
+      },
+      "id": "bb7b84bf-0f46-41a6-90df-740f75488b95",
+      "name": "Obtener Artículo HTML",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -752,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const html = $input.first().json.data;\nconst titleMatch = html.match(/<title[^>]*>([^<]+)<\\/title>/i);\nconst title = titleMatch ? titleMatch[1].replace(' - YouTube', '').trim() : 'Video sin título';\nconst descMatch = html.match(/\"description\":{\"simpleText\":\"([^\"]+)\"/);\nconst description = descMatch ? descMatch[1].substring(0, 2000) : '';\n\nreturn [{\n  json: {\n    source_id: $('Webhook: Iniciar Proceso').item.json.body.source_id,\n    politician_id: $('Webhook: Iniciar Proceso').item.json.body.politician_id,\n    url: $('Webhook: Iniciar Proceso').item.json.body.url,\n    source_type: 'video_youtube',\n    title: title,\n    extracted_text: description || title,\n    char_count: (description || title).length\n  }\n}];"
+      },
+      "id": "26d23f52-1562-40d3-9593-e84a70f7a58e",
+      "name": "Parsear YouTube",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const html = $input.first().json.data;\nconst titleMatch = html.match(/<title[^>]*>([^<]+)<\\/title>/i);\nconst h1Match = html.match(/<h1[^>]*>([^<]+)<\\/h1>/i);\nconst title = (titleMatch ? titleMatch[1] : (h1Match ? h1Match[1] : 'Sin título')).trim();\n\nlet text = html\n  .replace(/<script[^>]*>[\\s\\S]*?<\\/script>/gi, '')\n  .replace(/<style[^>]*>[\\s\\S]*?<\\/style>/gi, '')\n  .replace(/<nav[^>]*>[\\s\\S]*?<\\/nav>/gi, '')\n  .replace(/<header[^>]*>[\\s\\S]*?<\\/header>/gi, '')\n  .replace(/<footer[^>]*>[\\s\\S]*?<\\/footer>/gi, '')\n  .replace(/<[^>]+>/g, ' ')\n  .replace(/&nbsp;/g, ' ')\n  .replace(/&amp;/g, '&')\n  .replace(/\\s+/g, ' ')\n  .trim()\n  .substring(0, 8000);\n\nreturn [{\n  json: {\n    source_id: $('Webhook: Iniciar Proceso').item.json.body.source_id,\n    politician_id: $('Webhook: Iniciar Proceso').item.json.body.politician_id,\n    url: $('Webhook: Iniciar Proceso').item.json.body.url,\n    source_type: 'articulo_noticia',\n    title: title,\n    extracted_text: text,\n    char_count: text.length\n  }\n}];"
+      },
+      "id": "b1d69b70-5410-4bbb-b72a-82fc1d6c81b3",
+      "name": "Parsear Artículo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        384
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "f044a526-08f9-4b74-9fa8-b065e9cf5aa4",
+      "name": "Unir Extracción",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -320,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst baseData = $('Unir Extracción').item.json;\nconst modelNames = ['openai/gpt-4o-mini', 'google/gemma-3-27b-it', 'google/gemini-2.5-flash-lite-preview-06-17'];\nconst results = [];\nlet totalVeracity = 0;\nlet validCount = 0;\n\nitems.forEach((item, index) => {\n  try {\n    const raw = item.json.choices?.[0]?.message?.content || '{}';\n    const parsed = JSON.parse(raw.replace(/```json\\n?|```/g, '').trim());\n    \n    results.push({\n      source_id: baseData.source_id,\n      model_name: modelNames[index] || `modelo_${index}`,\n      report_json: parsed,\n      summary: parsed.summary || '',\n      veracity_score: parsed.veracity_score || null\n    });\n    \n    if (parsed.veracity_score) {\n      totalVeracity += parsed.veracity_score;\n      validCount++;\n    }\n  } catch(e) {\n    console.log('Error parseando: ' + e.message);\n  }\n});\n\nconst avgVeracity = validCount > 0 ? (totalVeracity / validCount).toFixed(2) : null;\n\nreturn [{\n  json: {\n    reports: results,\n    source_id: baseData.source_id,\n    politician_id: baseData.politician_id,\n    avg_veracity: avgVeracity,\n    models_used: validCount,\n    title: baseData.title\n  }\n}];"
+      },
+      "id": "3c70b17d-4b65-4c36-8b8e-7096ff0d0152",
+      "name": "Combinar Análisis",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        128,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://alxidykzaoiupbnlxgcf.supabase.co/rest/v1/ai_reports",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{ $env.SUPABASE_SERVICE_KEY }}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.SUPABASE_SERVICE_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "return=minimal"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "value": "={{ JSON.stringify($json.reports) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e24ff764-e06b-43a5-9a0d-4a7ed7648f35",
+      "name": "Guardar en Supabase",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        352,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: true, source_id: $json.source_id, avg_veracity: $json.avg_veracity, title: $json.title }) }}",
+        "options": {}
+      },
+      "id": "89939df0-e265-4786-8749-13c7dbecae2e",
+      "name": "Responder a Next.js",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        576,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openRouterApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "arcee-ai/trinity-large-preview:free"
+            },
+            {
+              "name": "messages",
+              "value": "=[{ \"role\": \"system\", \"content\": \"Eres un analista político imparcial. Analiza la siguiente fuente sobre un político chileno y evalúa: 1) Veracidad(0-100), 2) Coherencia(0-100), 3) Sesgo. Responde SOLO en JSON: {\\\"veracity_score\\\": number, \\\"coherence_score\\\": number, \\\"bias_analysis\\\": string, \\\"summary\\\": string, \\\"key_claims\\\": [string]}\" }, { \"role\": \"user\", \"content\": \"Título: \" + $json.title + \"\\n\\nContenido: \" + $json.extracted_text }]"
+            },
+            {
+              "name": "max_tokens",
+              "value": "=800"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "7eb637cc-113b-44b4-91aa-6eaed73afb89",
+      "name": "trinity-large-preview:free",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -96,
+        64
+      ],
+      "credentials": {
+        "openRouterApi": {
+          "id": "gAR1ZzQIN1CILg5r",
+          "name": "OpenRouter account"
+        }
+      },
+      "notes": "Modelo Económico 1"
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openRouterApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "deepseek/deepseek-v3.2"
+            },
+            {
+              "name": "messages",
+              "value": "=[{ \"role\": \"system\", \"content\": \"Eres un analista político imparcial. Analiza la siguiente fuente sobre un político chileno y evalúa: 1) Veracidad(0-100), 2) Coherencia(0-100), 3) Sesgo. Responde SOLO en JSON: {\\\"veracity_score\\\": number, \\\"coherence_score\\\": number, \\\"bias_analysis\\\": string, \\\"summary\\\": string, \\\"key_claims\\\": [string]}\" }, { \"role\": \"user\", \"content\": \"Título: \" + $json.title + \"\\n\\nContenido: \" + $json.extracted_text }]"
+            },
+            {
+              "name": "max_tokens",
+              "value": "=800"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "cd868f9a-adff-45ef-867e-988309b9794a",
+      "name": "deepseek/deepseek-v3.2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -96,
+        272
+      ],
+      "credentials": {
+        "openRouterApi": {
+          "id": "gAR1ZzQIN1CILg5r",
+          "name": "OpenRouter account"
+        }
+      },
+      "notes": "Modelo Económico 2"
+    },
+    {
+      "parameters": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openRouterApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "x-ai/grok-4.1-fast"
+            },
+            {
+              "name": "messages",
+              "value": "=[{ \"role\": \"system\", \"content\": \"Eres un analista político imparcial. Analiza la siguiente fuente sobre un político chileno y evalúa: 1) Veracidad(0-100), 2) Coherencia(0-100), 3) Sesgo. Responde SOLO en JSON: {\\\"veracity_score\\\": number, \\\"coherence_score\\\": number, \\\"bias_analysis\\\": string, \\\"summary\\\": string, \\\"key_claims\\\": [string]}\" }, { \"role\": \"user\", \"content\": \"Título: \" + $json.title + \"\\n\\nContenido: \" + $json.extracted_text }]"
+            },
+            {
+              "name": "max_tokens",
+              "value": "=800"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "6777f10f-eb6a-4156-9a2f-1c98cbaa06f4",
+      "name": "x-ai/grok-4.1-fast",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -96,
+        464
+      ],
+      "credentials": {
+        "openRouterApi": {
+          "id": "gAR1ZzQIN1CILg5r",
+          "name": "OpenRouter account"
+        }
+      },
+      "notes": "Modelo Económico 3"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook: Iniciar Proceso": {
+      "main": [
+        [
+          {
+            "node": "¿Es YouTube?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Es YouTube?": {
+      "main": [
+        [
+          {
+            "node": "Obtener página YouTube",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Obtener Artículo HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener página YouTube": {
+      "main": [
+        [
+          {
+            "node": "Parsear YouTube",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener Artículo HTML": {
+      "main": [
+        [
+          {
+            "node": "Parsear Artículo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parsear YouTube": {
+      "main": [
+        [
+          {
+            "node": "Unir Extracción",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parsear Artículo": {
+      "main": [
+        [
+          {
+            "node": "Unir Extracción",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Unir Extracción": {
+      "main": [
+        [
+          {
+            "node": "trinity-large-preview:free",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "deepseek/deepseek-v3.2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "x-ai/grok-4.1-fast",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combinar Análisis": {
+      "main": [
+        [
+          {
+            "node": "Guardar en Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar en Supabase": {
+      "main": [
+        [
+          {
+            "node": "Responder a Next.js",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "trinity-large-preview:free": {
+      "main": [
+        [
+          {
+            "node": "Combinar Análisis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "4dd20bad-7229-4e61-9eca-f49dc4dad075",
+  "meta": {
+    "instanceId": "0750b328218aa26ced5e17938f94c0e35a226e6f0c124c83b5c418ae14b55017"
+  },
+  "id": "Xa5lMALcFCmPDJhcEnvIi",
+  "tags": []
+}
