@@ -86,6 +86,7 @@ export function PoliticianCard({ politician }: PoliticianCardProps) {
                                 fill
                                 className="object-cover"
                                 sizes="64px"
+                                unoptimized
                             />
                         ) : (
                             <div className="h-full w-full flex items-center justify-center text-xl font-bold text-muted-foreground">
