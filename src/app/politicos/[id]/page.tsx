@@ -34,7 +34,7 @@ export default async function PoliticianProfilePage({ params }: { params: Promis
       <Card>
         <CardHeader className="flex flex-col md:flex-row items-start gap-4">
           <Avatar className="h-24 w-24 border">
-            <AvatarImage src={politician.profile_image_url || undefined} alt={politician.full_name} />
+            <AvatarImage src={politician.profile_image_url || undefined} alt={politician.full_name} referrerPolicy="no-referrer" />
             <AvatarFallback>{politician.full_name.charAt(0)}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
